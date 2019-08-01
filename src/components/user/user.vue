@@ -47,7 +47,12 @@
               @click="removeById(scope.row.id)"
             ></el-button>
             <el-tooltip effect="dark" content="分配权限" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+              <el-button
+                type="warning"
+                icon="el-icon-setting"
+                size="mini"
+                @click="showRoleDialog(scope.row)"
+              ></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -101,6 +106,31 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="editUser">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <!-- 分配角色 -->
+    <el-dialog
+      title="分配角色"
+      :visible.sync="setRoleDialogVisible"
+      width="50%"
+      @close="setDialogClosed"
+    >
+      <div>
+        <p>用户名:{{userinfo.username}}</p>
+        <p>角色名:{{userinfo.role_name}}</p>
+        <el-select v-model="selectedId" placeholder="请选择">
+          <el-option
+            v-for="item in roleList"
+            :key="item.id"
+            :label="item.roleName"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="setRoleDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="setUseRole">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -177,7 +207,13 @@ export default {
           { required: true, message: '请输入电话', trigger: 'blur' },
           { validator: checkMobile, trigger: 'blur' }
         ]
-      }
+      },
+      // 分配角色
+      setRoleDialogVisible: false,
+      userinfo: {},
+      roleList: [],
+      // 选中的用户角色
+      selectedId: ''
     }
   },
   methods: {
@@ -279,6 +315,34 @@ export default {
             message: '已取消删除'
           })
         })
+    },
+    async showRoleDialog(user) {
+      this.userinfo = user
+      this.setRoleDialogVisible = true
+
+      const { data: res } = await this.$http.get('/roles')
+      if (res.meta.status != 200) {
+        return this.$message.error('获取角色失败')
+      }
+      this.roleList = res.data
+    },
+    // 设置用户角色
+    async setUseRole() {
+      const { data: res } = await this.$http.put(
+        `users/${this.userinfo.id}/role`,
+        { rid: this.selectedId }
+      )
+      if (res.meta.status != 200) {
+        return this.$message.error('分配角色失败')
+      }
+
+      this.setRoleDialogVisible = false
+      this.getUserList()
+      this.$message.success('分配角色成功')
+    },
+    setDialogClosed() {
+      this.selectedId = ''
+      this.userinfo = {}
     }
   }
 }
