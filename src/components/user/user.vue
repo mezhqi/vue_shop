@@ -218,6 +218,10 @@ export default {
   },
   methods: {
     async getUserList() {
+      const data = await this.$http.get('/users', {
+        params: this.queryInfo
+      })
+      console.log(data)
       const { data: res } = await this.$http.get('/users', {
         params: this.queryInfo
       })
