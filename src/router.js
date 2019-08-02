@@ -7,6 +7,7 @@ import User from './components/user/user.vue'
 import Rights from './components/power/rights.vue'
 import Roles from './components/power/roles.vue'
 import Category from './components/goods/category.vue'
+import Params from './components/goods/params.vue'
 
 Vue.use(Router)
 
@@ -23,7 +24,8 @@ const router = new Router({
         { path: '/users', component: User },
         { path: '/rights', component: Rights },
         { path: '/roles', component: Roles },
-        { path: '/categories', component: Category }
+        { path: '/categories', component: Category },
+        { path: '/params', component: Params }
       ]
     }
   ]
