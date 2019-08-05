@@ -305,7 +305,7 @@ export default {
         this.getParamsData()
       })
     },
-    async removeParams(attr_id) {
+    async removeParams(attrId) {
       const result = await this.$confirm(
         '此操作将永久删除该参数, 是否继续?',
         '提示',
@@ -318,7 +318,7 @@ export default {
       if (result != 'confirm') return
 
       const { data: res } = await this.$http.delete(
-        `categories/${this.categoryId}/attributes/${attr_id}`
+        `categories/${this.categoryId}/attributes/${attrId}`
       )
 
       if (res.meta.status != 200) {
