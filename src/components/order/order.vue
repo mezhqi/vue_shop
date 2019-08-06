@@ -113,7 +113,7 @@ export default {
         detail: [{ required: true, message: '请输入详细地址', trigger: 'blur' }]
       },
       progressDialogVisible: false,
-      progressData:[]
+      progressData: []
     }
   },
   methods: {
