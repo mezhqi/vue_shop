@@ -34,6 +34,7 @@ Vue.config.productionTip = false
 
 Vue.component('tree-table', tree)
 
+// 过滤器
 Vue.filter('fmtTime', function(value) {
   const dt = new Date(value)
   const y = dt.getFullYear()

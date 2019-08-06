@@ -113,10 +113,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-pagination,
-.el-table {
-  margin-top: 15px;
-}
+
 </style>
 
 

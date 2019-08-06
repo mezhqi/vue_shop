@@ -354,10 +354,6 @@ export default {
   display: flex;
   align-items: center;
 }
-
-.el-table {
-  margin-top: 15px;
-}
 </style>
 
 

@@ -402,9 +402,6 @@ export default {
 .el-cascader {
   width: 300px;
 }
-.el-table {
-  margin-top: 15px;
-}
 .el-tag {
   margin: 10px;
 }

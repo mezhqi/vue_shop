@@ -305,9 +305,7 @@ export default {
 .el-cascader {
   width: 100%;
 }
-.el-pagination {
-  margin-top: 15px;
-}
+
 // .cascader {
 //   top: 0 !important;
 //   height: 500px !important;
